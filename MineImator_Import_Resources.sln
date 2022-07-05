@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MineImator_Import_Resources", "MineImator_Import_Resources\MineImator_Import_Resources.csproj", "{EA92F1F7-B09A-4372-8798-ED4888419F6C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA92F1F7-B09A-4372-8798-ED4888419F6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA92F1F7-B09A-4372-8798-ED4888419F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA92F1F7-B09A-4372-8798-ED4888419F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA92F1F7-B09A-4372-8798-ED4888419F6C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C3300318-99CD-47E7-8D9D-9EBC8375B1F1}
+	EndGlobalSection
+EndGlobal
