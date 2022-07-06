@@ -14,10 +14,10 @@ namespace MineImator_Import_Resources
             comboBox1.SelectedIndex = 0;
         }
 
+        //随机字符串
         private string RandomString(int codeLength)
         {
             string chars = "0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,I,J,K,L,M,N,P,P,Q,R,S,T,U,V,W,X,Y,Z";
-
             string[] charArray = chars.Split(new Char[] { ',' });
             string code = "";
             int temp = -1;
@@ -37,8 +37,9 @@ namespace MineImator_Import_Resources
                 code += charArray[t];
             }
             return code;
-        }//随机16位字符串
+        }
 
+        //添加资源
         private void AddResources(string Path, string Type, string Filename)
         {
             string JsonPath = Path;
@@ -52,7 +53,7 @@ namespace MineImator_Import_Resources
             jobject["resources"].Last.AddAfterSelf(resources);
             string convertString = Convert.ToString(jobject);
             File.WriteAllText(JsonPath, convertString);
-        }//添加资源
+        }
 
         private int fileNum = 0;
         private string type = "";
@@ -106,7 +107,7 @@ namespace MineImator_Import_Resources
                     {
                         type = "sound";
                     }
-                    progressBar1.Maximum = fileNum;
+                    progressBar1.Maximum = fileNum - 1;
                     for (int i = 0; i <= fileNum - 1; i++)
                     {
                         AddResources(file, type, Path.GetFileName(listBox1.Items[i].ToString()));
@@ -115,7 +116,7 @@ namespace MineImator_Import_Resources
                         {
                             fileto.CopyTo(Path.GetDirectoryName(file) + "\\" + Path.GetFileName(listBox1.Items[i].ToString()), true);
                         }
-                        progressBar1.Value = i + 1;
+                        progressBar1.Value = i;
                     }
                     MessageBox.Show("完成导入");
                 }
