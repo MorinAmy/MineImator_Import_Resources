@@ -1,6 +1,6 @@
 ﻿namespace MineImator_Import_Resources
 {
-    partial class Form1
+    partial class MainWindow
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.ADDFile = new System.Windows.Forms.Button();
             this.Import = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -40,10 +40,10 @@
             // 
             // ADDFile
             // 
-            this.ADDFile.Location = new System.Drawing.Point(204, 6);
-            this.ADDFile.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.ADDFile.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.ADDFile.Location = new System.Drawing.Point(205, 5);
             this.ADDFile.Name = "ADDFile";
-            this.ADDFile.Size = new System.Drawing.Size(75, 25);
+            this.ADDFile.Size = new System.Drawing.Size(75, 26);
             this.ADDFile.TabIndex = 0;
             this.ADDFile.Text = "添加文件";
             this.ADDFile.UseVisualStyleBackColor = true;
@@ -51,10 +51,10 @@
             // 
             // Import
             // 
-            this.Import.Location = new System.Drawing.Point(285, 6);
-            this.Import.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Import.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.Import.Location = new System.Drawing.Point(286, 5);
             this.Import.Name = "Import";
-            this.Import.Size = new System.Drawing.Size(75, 25);
+            this.Import.Size = new System.Drawing.Size(75, 26);
             this.Import.TabIndex = 1;
             this.Import.Text = "导入工程";
             this.Import.UseVisualStyleBackColor = true;
@@ -63,17 +63,21 @@
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "图片",
             "皮肤",
-            "音频"});
+            "音频",
+            "序列",
+            "视频"});
             this.comboBox1.Location = new System.Drawing.Point(77, 6);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(0);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 25);
             this.comboBox1.TabIndex = 2;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox1.DropDown += new System.EventHandler(this.comboBox1_DropDown);
+            this.comboBox1.DropDownClosed += new System.EventHandler(this.comboBox1_DropDownClosed);
             // 
             // label1
             // 
@@ -119,7 +123,7 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "0个文件";
             // 
-            // Form1
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -133,13 +137,15 @@
             this.Controls.Add(this.Import);
             this.Controls.Add(this.ADDFile);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MineImator批量导入资源";
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
