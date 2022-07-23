@@ -13,7 +13,6 @@ namespace MineImator_Import_Resources
 {
     internal class LoadResource
     {
-        public Task task1;
         public Task task;
 
         /// <summary>
@@ -47,14 +46,14 @@ namespace MineImator_Import_Resources
             string[] charArray = chars.Split(new Char[] { ',' });
             string code = "";
             int temp = -1;
-            Random rand = new Random();
+            Random random = new Random();
             for (int i = 1; i < codeLength + 1; i++)
             {
                 if (temp != -1)
                 {
-                    rand = new Random(i * temp * unchecked((int)DateTime.Now.Ticks));
+                    random = new Random(i * temp * unchecked((int)DateTime.Now.Ticks));
                 }
-                int t = rand.Next(36);
+                int t = random.Next(36);
                 if (temp == t)
                 {
                     return RandomString(codeLength);
@@ -155,7 +154,6 @@ namespace MineImator_Import_Resources
             ProcessStartInfo startInfo = new ProcessStartInfo(ffmpeg);
             startInfo.WindowStyle = ProcessWindowStyle.Normal;
             startInfo.Arguments = " -i " + "\"" + videoPath + "\"" + frame + " -f image2 " + "\"" + imgOut + "\"";  //输出的图片文件名，路径前必须有空格
-            //startInfo.RedirectStandardOutput = true;
             Process processVideo = Process.Start(startInfo);
             processVideo.WaitForExit();
 
@@ -165,7 +163,6 @@ namespace MineImator_Import_Resources
                 Process processAudio = Process.Start(startInfo);
                 processAudio.WaitForExit();
             }
-            //task1.Wait();
             task.Start();
         }
 

@@ -42,6 +42,7 @@ namespace MineImator_Import_Resources
                 int c = 0;
                 int index = Convert.ToInt32(comboBox1.Text.Substring(1, 1));
                 progressBar.Maximum = f - 1;
+                progressBar1.Maximum = f - 1;
                 new Task(() =>
                 {
                     for (int i = 0; i < f; i++)
@@ -61,6 +62,7 @@ namespace MineImator_Import_Resources
                             }
                         }
                         progressBar.Value = i;
+                        progressBar1.Value = i;
                     }
                     MessageBox.Show("完成");
                 }).Start();

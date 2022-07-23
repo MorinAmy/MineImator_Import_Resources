@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,8 +16,7 @@ namespace MineImator_Import_Resources
         public ListBox listBox;
         public bool ffmpegonoff = false;
         public string ffmpeg = "";
-        private Task task;
-        private Task task1;
+        public ProgressBar progressBar;
 
         public ImageVideo()
         {
@@ -66,74 +63,93 @@ namespace MineImator_Import_Resources
                     int index = Convert.ToInt32(comboBox1.Text.Substring(1, 1));
                     //new Thread(() =>
 
+                    int num = 0;
                     int a = int.Parse(textBox1.Text);
                     int b = int.Parse(textBox3.Text);
                     string v = "00";
                     int c = 0;
                     new Task(() =>
                     {
+                        this.Invoke(new Action(() =>
+                        {
+                            Height = 383;
+
+                            richTextBox1.Text = "正在转换视频\n请稍等\n";
+                            timer1.Start();
+                        }));
                         loadResource.VideoFrame(ffmpeg, listBox.Items[0].ToString(), Path.GetDirectoryName(path) + "\\" + textBox4.Text + "%03d.png", Path.GetDirectoryName(path) + "\\" + textBox4.Text + ".mp3", frame, autioonoff);//).Start();
+                        for (int i = 0; i > 0; i++)
+                        {
+                            if (i > 9)
+                            {
+                                v = "0";
+                            }
+                            if (i > 99)
+                            {
+                                v = "";
+                            }
+                            if (File.Exists(Path.GetDirectoryName(path) + "\\" + textBox4.Text + v + i + ".png"))
+                            {
+                                num++;
+                                this.Invoke(new Action(() =>
+                                {
+                                    richTextBox1.AppendText("加载第" + i + "张\n");
+
+                                    richTextBox1.Select(this.richTextBox1.TextLength, 0);
+                                    //滚动到控件光标处
+                                    richTextBox1.ScrollToCaret();
+                                }));
+                            }
+                        }
                     }).Start();
                     try
                     {
-                        //for (int i = 1; i > 0; i++)
-                        //{
-                        //    if (i > 9)
-                        //    {
-                        //        v = "0";
-                        //    }
-                        //    if (i > 99)
-                        //    {
-                        //        v = "";
-                        //    }
-                        //    if (File.Exists(Path.GetDirectoryName(path) + "\\" + textBox4.Text + v + i + ".png"))
-                        //    {
-                        //        num++;
-                        //    }
-                        //    else
-                        //    {
-                        //        break;
-                        //    }
-                        //}
-                        //this.Invoke(new Action(() =>
-                        //{
-                        //    progressBar.Maximum = num;
-                        //}));
-
                         loadResource.task = new Task(() =>
-                        {
-                            int files = Directory.GetFiles(Path.GetDirectoryName(path)).Length;
-                            for (int i = 1; i > 0; i++)
-                            {
-                                if (i > 9)
-                                {
-                                    v = "0";
-                                }
-                                if (i > 99)
-                                {
-                                    v = "";
-                                }
-                                if (File.Exists(Path.GetDirectoryName(path) + "\\" + textBox4.Text + v + i + ".png"))
-                                {
-                                    loadResource.AddFrames(path, a + (i - 1) + c, index, loadResource.RandomString(16), textBox4.Text + v + i + ".png");
-                                    c = c + b;
-                                    this.Invoke(new Action(() =>
-                                    {
-                                    }));
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-                            if (autioonoff)
-                            {
-                                loadResource.AddAudio(path, loadResource.RandomString(16), textBox4.Text, a);
-                            }
+                         {
+                             timer1.Stop();
 
-                            MessageBox.Show("完成");
-                        });
-                        //}).Start();
+                             for (int i = 0; i <= num; i++)
+                             {
+                                 if (i > 9)
+                                 {
+                                     v = "0";
+                                 }
+                                 if (i > 99)
+                                 {
+                                     v = "";
+                                 }
+                                 if (File.Exists(Path.GetDirectoryName(path) + "\\" + textBox4.Text + v + i + ".png"))
+                                 {
+                                     loadResource.AddFrames(path, a + (i - 1) + c, index, loadResource.RandomString(16), textBox4.Text + v + i + ".png");
+                                     c = c + b;
+                                     this.Invoke(new Action(() =>
+                                     {
+                                         richTextBox1.Select(this.richTextBox1.TextLength, 0);
+                                         //滚动到控件光标处
+                                         richTextBox1.ScrollToCaret();
+                                     }));
+                                 }
+                                 else
+                                 {
+                                     break;
+                                 }
+                             }
+                             this.Invoke(new Action(() =>
+                             {
+                                 richTextBox1.AppendText("加载完成\n");
+                             }));
+
+                             if (autioonoff)
+                             {
+                                 loadResource.AddAudio(path, loadResource.RandomString(16), textBox4.Text, a);
+                             }
+
+                             this.Invoke(new Action(() =>
+                             {
+                                 MessageBox.Show("完成");
+                                 Close();
+                             }));
+                         });
                     }
                     catch (Exception ex)
                     {
@@ -147,8 +163,11 @@ namespace MineImator_Import_Resources
             }
         }
 
+        private int o = 1;
+
         private void ImageVideo_Load(object sender, EventArgs e)
         {
+            o = 1;
             if (ffmpegonoff)
             {
                 ffmpeg = @"bin\ffmpeg.exe";
@@ -262,6 +281,14 @@ namespace MineImator_Import_Resources
             {
                 textBox5.Text = "1";
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            richTextBox1.AppendText("用时:" + o++.ToString() + "秒\n");
+            richTextBox1.Select(this.richTextBox1.TextLength, 0);
+            //滚动到控件光标处
+            richTextBox1.ScrollToCaret();
         }
     }
 }
